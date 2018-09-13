@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>モーダル</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="modal-box">
+    <button class="open-modal" data-text="一つ目のモーダルです">モーダルを開く</button>
+    <button class="open-modal" data-text="二つ目のモーダルです">モーダルを開く</button>
+    <button class="open-modal" data-text="三つ目のモーダルです">モーダルを開く</button>
+  </div>
+
+
+
+  <div class="modal">
+    <span class="modal-close-cross">
+      <img src="./images/close_cross.png">
+    </span>
+
+    <p class="modal-text">テキストが入るところです。</p>
+
+    <p class="modal-close-button">
+      <img src="./images/modal_close_btn.jpg">
+    </p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+  <script src="./js/modal.js"></script>
+</body>
+
+</html>
