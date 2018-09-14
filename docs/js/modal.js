@@ -5,8 +5,9 @@ class Modal {
     this.overlay = document.querySelector('.overlay');
     this.close = document.querySelector('.modal-close-button');
     this.close_cross = document.querySelector('.modal-close-cross');
+    this.modal_text = document.querySelector('.modal-text');
+
     this.body = document.body;
-    this.modal_text = this.button[0].dataset.text;
 
     this.close_list = [this.overlay, this.close, this.close_cross];
 
@@ -14,17 +15,25 @@ class Modal {
   }
 
   bind() {
-    console.log(this.modal_text);
-
-    this.button.forEach(currentValue => {
-      currentValue.addEventListener('click', () => {
-        this.openModal();
-      });
-    });
+    // this.button.forEach(currentValue => {
+    //   currentValue.addEventListener('click', () => {
+    //     this.openModal();
+    //   });
+    // });
 
     this.close_list.forEach(currentValue => {
       currentValue.addEventListener('click', () => {
         this.closeModal();
+      });
+    });
+
+    [].forEach.call(this.button, modal_text => {
+      modal_text.addEventListener('click', (e) => {
+        this.index = e.currentTarget.dataset.text;
+
+        this.modal_text.textContent = this.index;
+
+        this.openModal();
       });
     });
   }
