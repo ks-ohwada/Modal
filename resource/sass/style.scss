@@ -108,4 +108,17 @@ button {
     font-weight: bold;
     letter-spacing: 6px;
   }
+
+  .modal-left-arrow {
+    position: absolute;
+    left: -180px;
+    top: 170px;
+    cursor: pointer;
+  }
+  .modal-right-arrow {
+    position: absolute;
+    right: -180px;
+    top: 170px;
+    cursor: pointer;
+  }
 }
