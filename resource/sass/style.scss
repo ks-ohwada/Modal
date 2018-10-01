@@ -91,7 +91,7 @@ button {
 
   .modal-close-button {
     display: block;
-    margin: 220px auto 0;
+    margin: 20px auto 0;
     width: 300px;
     cursor: pointer;
   }
@@ -103,7 +103,7 @@ button {
   }
   .modal-text {
     text-align: center;
-    margin-top: 200px;
+    margin-top: 30px;
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 6px;
@@ -120,5 +120,12 @@ button {
     right: -180px;
     top: 170px;
     cursor: pointer;
+  }
+  .modal-image {
+    text-align: center;
+    margin-top : 40px;
+    img {
+      width : 340px;
+    }
   }
 }

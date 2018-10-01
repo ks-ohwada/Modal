@@ -6,6 +6,7 @@ class Modal {
     this.close = document.querySelector('.modal-close-button');
     this.close_cross = document.querySelector('.modal-close-cross');
     this.modal_text = document.querySelector('.modal-text');
+    this.modal_image = document.querySelector('.modal-image');
     this.modal_arrow = [
       document.querySelector('.modal-left-arrow'),
       document.querySelector('.modal-right-arrow')
@@ -34,6 +35,7 @@ class Modal {
 
         this.index = e.currentTarget.dataset.value;
 
+        this.updateImage();
         this.openModal();
       });
     });
@@ -111,6 +113,7 @@ class Modal {
       this.index = 0;
     }
 
+    this.updateImage();
     this.updateText();
   }
 
@@ -121,11 +124,17 @@ class Modal {
       this.index = this.button.length - 1;
     }
 
+    this.updateImage();
     this.updateText();
   }
 
   updateText() {
     this.modal_text.textContent = this.button[this.index].dataset.text;
+  }
+
+
+  updateImage() {
+    this.modal_image.innerHTML = `<img src="./images/${this.index}.jpg">`
   }
 }
 
