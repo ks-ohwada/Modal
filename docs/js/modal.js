@@ -1,22 +1,30 @@
 class Modal {
   constructor() {
+    /* エレメント取得 */
     this.button = document.querySelectorAll('.open-modal');
     this.modal = document.querySelector('.modal');
     this.overlay = document.querySelector('.overlay');
     this.close = document.querySelector('.modal-close-button');
     this.close_cross = document.querySelector('.modal-close-cross');
-    this.modal_text = document.querySelector('.modal-text');
-    this.modal_image = document.querySelector('.modal-image');
+    this.modal_text = document.querySelectorAll('.modal-text');
+    this.modal_image = document.querySelectorAll('.modal-image');
     this.modal_arrow = [
       document.querySelector('.modal-left-arrow'),
       document.querySelector('.modal-right-arrow')
     ];
 
-    this.index = 0;
+    this.index = null;
+    this.index2 = null;
+    this.isAnimating = false;
 
     this.body = document.body;
 
     this.close_list = [this.overlay, this.close, this.close_cross];
+
+    /* スライダー用変数 */
+    this.inside = document.querySelector('.slide-inside');
+    this.width = 600;
+    this.translateX = null;
 
     this.setData();
     this.bind();
@@ -31,26 +39,33 @@ class Modal {
 
     [].forEach.call(this.button, button => {
       button.addEventListener('click', e => {
-        this.modal_text.textContent = e.currentTarget.dataset.text;
+        this.index = Number(e.currentTarget.dataset.value);
 
-        this.index = e.currentTarget.dataset.value;
-
-        this.updateImage();
+        this.update();
         this.openModal();
       });
     });
 
     this.modal_arrow[0].addEventListener('click', e => {
-      this.prevText();
+      if (this.isAnimating) {
+        return;
+      }
+      this.prevSlide();
     });
 
     this.modal_arrow[1].addEventListener('click', e => {
-      this.nextText();
+      if (this.isAnimating) {
+        return;
+      }
+      this.nextSlide();
     });
   }
 
+  noClick() {
+    this.modal_arrow[1].classList.add('noClick');
+  }
+
   openModal() {
-    console.log(this.index);
     this.overlay.style.display = 'block';
     this.modal.style.display = 'block';
 
@@ -104,37 +119,65 @@ class Modal {
     this.button.forEach((currentValue, index) => {
       currentValue.dataset.value = index;
     });
+
+    this.modal_text.forEach((currentValue, index) => {
+      currentValue.textContent = this.button[index].dataset.text;
+    });
+
+    this.modal_image.forEach((currentValue, index) => {
+      currentValue.innerHTML = `<img src="./images/${
+        this.button[index].dataset.image
+      }.jpg">`;
+    });
+
+    this.inside.style.transform = `translateX(0px)`;
   }
 
-  nextText() {
-    if (this.index < this.button.length - 1) {
-      this.index++;
-    } else {
-      this.index = 0;
-    }
-
-    this.updateImage();
-    this.updateText();
+  update() {
+    this.inside.style.transform = `translateX(${-this.width * this.index}px)`;
   }
 
-  prevText() {
+  nextSlide() {
+    // if (this.index < this.button.length - 1) {
+    //   this.index++;
+    // } else {
+    //   this.index = 0;
+    // }
+
+    this.index = this.index < this.button.length - 1
+      ? this.index + 1
+      : 0;
+
+      console.log(this.index);
+
+    this.slideAnimation();
+  }
+
+  prevSlide() {
     if (this.index > 0) {
       this.index--;
     } else {
       this.index = this.button.length - 1;
     }
 
-    this.updateImage();
-    this.updateText();
+    this.slideAnimation();
   }
+  slideAnimation() {
+    this.translateX = -this.width * this.index;
+    this.noClick();
 
-  updateText() {
-    this.modal_text.textContent = this.button[this.index].dataset.text;
-  }
+    anime.remove(this.inside);
+    this.isAnimating = true;
+    anime({
+      targets: this.inside,
+      translateX: this.translateX,
+      easing: 'easeOutCubic',
+      duration: 500,
 
-
-  updateImage() {
-    this.modal_image.innerHTML = `<img src="./images/${this.index}.jpg">`
+      complete: () => {
+        this.isAnimating = false;
+      }
+    });
   }
 }
 

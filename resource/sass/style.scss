@@ -70,7 +70,7 @@ button {
   bottom: 0;
   z-index: 2;
   cursor: pointer;
-  // display: none;
+  display: none;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -87,7 +87,7 @@ button {
   border-radius: 30px;
   transform: scale(1);
   border: 1px solid #000;
-  // display: none;
+  display: none;
 
   .modal-close-button {
     display: block;
@@ -123,9 +123,24 @@ button {
   }
   .modal-image {
     text-align: center;
-    margin-top : 40px;
+    margin-top: 40px;
     img {
-      width : 340px;
+      width: 340px;
+    }
+  }
+}
+
+.slide-outside {
+  width: 600px;
+  overflow: hidden;
+
+  .slide-inside {
+    width: 1800px;
+    display: flex;
+    justify-content: space-between;
+
+    .modal-slide {
+      width: 600px;
     }
   }
 }
